@@ -1,0 +1,35 @@
+---
+- name: install nginx in ubuntu
+  become: true
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+
+- name: create directory for log
+  become: yes
+  file:
+    path: /nginx/log
+    state: directory
+
+- name: copy html file to nginx folder
+  become: true
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - {src: "{{ role_path }}/files/index.html", dest: /usr/share/nginx/html/index.html}
+    - {src: "{{ role_path }}/files/inner.html", dest: /usr/share/nginx/html/inner.html}
+  notify: restart nginx
+
+- name: copy nginx config to conf.d
+  become: yes
+  template:
+    src: "{{ role_path }}/templates/config.j2"
+    dest: "/etc/nginx/conf.d/http.conf"
+  notify: restart nginx
+
+
+
+
+

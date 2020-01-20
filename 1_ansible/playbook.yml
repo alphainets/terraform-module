@@ -1,0 +1,5 @@
+---
+- hosts: "bgl-vm"
+  gather_facts: no
+  roles:
+    - bgl

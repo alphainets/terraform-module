@@ -1,0 +1,4 @@
+---
+listen_port: 80
+log_path: "/nginx/log/nginx.log"
+root_path: "/usr/share/nginx/html"

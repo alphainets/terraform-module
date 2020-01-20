@@ -1,0 +1,13 @@
+server { # simple reverse-proxy
+    listen       {{ listen_port }};
+    server_name  www.example_bgl.com;
+    access_log   {{ log_path }};
+
+    # serve static files
+
+    # pass requests for dynamic content to rails/turbogears/zope, et al
+    location / {
+        root   {{ root_path }};
+        index  index.html index.htm;
+    }
+  }
